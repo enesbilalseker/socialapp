@@ -16,15 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appsocialactivity"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".AddBinActivity"
-            android:exported="false" />
+
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
+
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -48,7 +44,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
