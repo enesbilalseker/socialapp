@@ -1,0 +1,29 @@
+<resources>
+    <!-- environmental variables -->
+    <string name="app_name">Social Activity App</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="web_client_id" translatable="false">604683046025-isq3clcbuajbgnf6svemfkg0lnffmqs2.apps.googleusercontent.com</string>
+    <!-- UI cevirileri -->
+    <string name="edit_text_hint_email"> Email</string>
+    <string name="edit_text_hint_password"> Password</string>
+    <string name="edit_text_hint_name_surname">Name Surname</string>
+    <string name="login_button">Login</string>
+    <string name="signup_button">Signup</string>
+    <string name="dont_have_account_text">Don\'t have an account yet? <b>Tap here!</b></string>
+    <string name="invalid_email_error">Invalid email format</string>
+    <string name="empty_password_error">Enter password</string>
+    <string name="password_length_error">Password must be at least 6 characters long</string>
+    <string name="progress_dialog_please_wait">Please wait</string>
+    <string name="progress_dialog_creating_account">Creating your account...</string>
+    <string name="account_created_succesfuly">Account created</string>
+    <string name="logged_in_succesfuly">Logged in</string>
+    <string name="gps_network_not_enabled">GPS Network Not Enabled</string>
+    <string name="open_location_settings">Open Location Settings</string>
+    <string name="fab_menu">Add Recycle Bin</string>
+    <string name="fab_send">Save</string>
+    <string name="fab_display_locs">Display Locations</string>
+    <string name="Cancel">Cancel</string>
+    <string name="spinner_gun_prompt">Select Bin Type</string>
+
+
+</resources>
