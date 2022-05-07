@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 
 import com.example.appsocialactivity.databinding.ActivityMainBinding;
-import com.example.appsocialactivity.dbmodel.RecycleBin;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize firebase user
         firebaseUser=firebaseAuth.getCurrentUser();
-
+        /*
         // Check condition
         if(firebaseUser != null)
         {
@@ -97,6 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         });
-
+   */
     }
 }
