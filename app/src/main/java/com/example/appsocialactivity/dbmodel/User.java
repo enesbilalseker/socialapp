@@ -6,9 +6,7 @@ import java.util.ArrayList;
 public class User {
     private String nameSurname;
     private String phoneNumber;
-    private ArrayList<String> interestList;
-
-
+    private ArrayList<String> interestsOfUser;
 
     public User( String nameSurname) {
         this.nameSurname = nameSurname;
@@ -31,13 +29,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-
-    public ArrayList<String> getRecycleBinList() {
-        return interestList;
+    public ArrayList<String> getInterestsOfUser() {
+        return interestsOfUser;
     }
 
-    public void setRecycleBinList(ArrayList<String> recycleBinList) {
-        this.interestList = recycleBinList;
+    public void setInterestsOfUser(ArrayList<String> interestsOfUser) {
+        this.interestsOfUser = interestsOfUser;
     }
+
+
 }
 
