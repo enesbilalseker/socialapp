@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 
 import com.example.appsocialactivity.databinding.ActivityMainBinding;
-import com.example.appsocialactivity.dbmodel.RecycleBin;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -65,15 +65,15 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
 
         // Check condition
-        if(firebaseUser != null)
+        /*if(firebaseUser != null)
         {
             String email = firebaseUser.getEmail();
             binding.mail.setText(email);
-        }
+        }*/
 
         // Initialize sign in client
         gsc= GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-
+/*
         binding.logout.setOnClickListener(view -> {
             // Sign out from google
             gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        });
+        });*/
 
     }
 }
