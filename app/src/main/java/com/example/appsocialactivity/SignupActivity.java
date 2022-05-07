@@ -129,7 +129,7 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, getString(R.string.logged_in_succesfuly) + "\n" + email, Toast.LENGTH_SHORT).show();
 
                         // HomeActivity yonlendirmesi
-                        Intent intent = new Intent(SignupActivity.this, MapsActivity.class);
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                         intent.putExtra("signInMethod", 0);// home activity kisminda hangi signin metodu ile islem yapilacagini
                         startActivity(intent);                        // belirlemek icin kkullanilir (0 --> firebase email signIn)
                         finish();
