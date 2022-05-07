@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "12619970005",
-    "project_id": "socialactivityapp-ecf38",
-    "storage_bucket": "socialactivityapp-ecf38.appspot.com"
+    "project_number": "304825810174",
+    "project_id": "socialapp-349515",
+    "storage_bucket": "socialapp-349515.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:12619970005:android:a36981d81521143cb0b95c",
+        "mobilesdk_app_id": "1:304825810174:android:3b691c0fca3bb7a220f9af",
         "android_client_info": {
           "package_name": "com.example.appsocialactivity"
         }
       },
       "oauth_client": [
         {
-          "client_id": "12619970005-n8obldbtngblobgtsdpmccaqcnjr4jhv.apps.googleusercontent.com",
+          "client_id": "304825810174-sn15j2kghbq9gnl535i1n4rsjqokif37.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.appsocialactivity",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "12619970005-os2bo5g6bipj3tqtrsr1gbf7bfj96aj1.apps.googleusercontent.com",
+          "client_id": "304825810174-n4spfts32dvojn33hncfo5141qambkh0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBrj1Z-KRB7dYEsrFDQBHtZUwvttJK6LAA"
+          "current_key": "AIzaSyD9aGnzwdas6GnYTO9S_TqxATKEKTa89cs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "12619970005-os2bo5g6bipj3tqtrsr1gbf7bfj96aj1.apps.googleusercontent.com",
+              "client_id": "304825810174-n4spfts32dvojn33hncfo5141qambkh0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
