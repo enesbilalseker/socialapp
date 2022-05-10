@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize firebase user
         firebaseUser=firebaseAuth.getCurrentUser();
 
+
+        /*
         // Check condition
         if(firebaseUser != null)
         {
@@ -94,6 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         });
-
+        */
     }
 }
