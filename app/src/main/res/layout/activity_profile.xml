@@ -2,13 +2,131 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black_dim">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/gradient">
+        android:layout_marginTop="17dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AD SOYAD"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:textSize="21sp"/>
+
+                <CheckBox
+                    android:id="@+id/interest_tags_ball_sports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top Sporları"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"/>
+
+                <CheckBox
+                    android:id="@+id/interest_tags_games_of_chance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Şans Oyunları(Okey vb.)"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"/>
+
+                <CheckBox
+                    android:id="@+id/interest_tags_discussion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tartışma(Film, dizi vb.)"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/phone_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="7dp"
+                            android:text="İletişim: +905078869669"
+                            android:textSize="19sp"
+                            android:textColor="@color/white"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/phone_number_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="Telefon Numarası"
+                                android:textSize="19sp"
+                                android:textColorHint="@color/white"/>
+
+                            <Button
+                                android:id="@+id/submitPhoneBTN"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="31dp"
+                                android:padding="7dp"
+                                android:text="Ekle"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/add_eventBTN"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:text="Etkinlik Oluştur"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Etkinlik Geçmişi"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow_500">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -19,68 +137,41 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
+                android:layout_marginStart="15dp"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/title"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:hint="Başlık"/>
-
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="17sp"
-                    android:hint="description"/>
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
                         android:id="@+id/event_location"
-                        android:layout_width="250dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="7dp"
                         android:layout_marginTop="3dp"
-                        android:textSize="15sp"
-                        android:hint="lokasyon"/>
+                        android:textSize="19sp"
+                        android:textColor="@color/white"
+                        android:text="Etkinlik Başlığı"/>
+                    <TextView
+                        android:id="@+id/event_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textColor="@color/white"
+                        android:text="Tarih ve Saat"/>
 
-
+                    <Button
+                        android:id="@+id/delete_eventBTN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250dp"
+                        android:layout_marginTop="-50dp"
+                        android:text="Sil"
+                        android:textSize="17sp" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/submitDateBTN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pick Time"/>
-                <TextView
-                    android:id="@+id/dateTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    />
-                <Button
-                    android:id="@+id/submitEventBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pick Time"/>
             </LinearLayout>
 
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/event_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="11dp"
-            android:layout_alignParentRight="true"
-            android:text="Top Sporu"/>
-
     </RelativeLayout>
 </LinearLayout>
