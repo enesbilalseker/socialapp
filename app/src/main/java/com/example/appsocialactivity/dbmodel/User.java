@@ -7,8 +7,17 @@ public class User {
     private String nameSurname;
     private String phoneNumber;
     private ArrayList<String> interestsOfUser;
+    private ArrayList<Event> eventList;
 
-    public User( String nameSurname) {
+    public ArrayList<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(ArrayList<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public User(String nameSurname) {
         this.nameSurname = nameSurname;
     }
 

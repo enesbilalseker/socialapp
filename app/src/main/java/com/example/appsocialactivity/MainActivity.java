@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     // actionbar
     private ActionBar actionBar;
+    String userIDString;
 
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         // configure action bar, title, backbutton
         actionBar = getSupportActionBar();
@@ -97,5 +101,25 @@ public class MainActivity extends AppCompatActivity {
             });
         });
         */
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.profileButton) {
+            // do something here
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            intent.putExtra("userId", userIDString);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

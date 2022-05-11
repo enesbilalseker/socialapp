@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Event {
     GeoPoint location;
-    Date date;
+    Long date;
     String eventDescription;
     String eventName;
     ArrayList<String> interestsOfEvent;
@@ -21,11 +21,11 @@ public class Event {
         this.location = location;
     }
 
-    public Date getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 

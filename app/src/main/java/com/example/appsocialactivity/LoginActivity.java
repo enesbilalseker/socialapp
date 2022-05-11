@@ -1,6 +1,8 @@
 package com.example.appsocialactivity;
 
 
+import static com.example.appsocialactivity.constants.SharedPrefNames.USER_ID_PREF;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -41,7 +43,6 @@ public class LoginActivity extends AppCompatActivity  {
 
     // TAGS
     private static final String TAG = "GOOGLE_SING_IN_TAG";
-    private final String USER_ID_PREF = "USER_ID_PREF";
 
     // ViewBinding
     private ActivityLoginBinding binding;
@@ -241,6 +242,10 @@ public class LoginActivity extends AppCompatActivity  {
                                                         // MapsActivity yonlendirmesi
                                                         Toast.makeText(LoginActivity.this, getString(R.string.logged_in_succesfuly) + "\n" + email, Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                        SharedPreferences.Editor editor = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE).edit();
+                                                        editor.putString("userId", firebaseUser.getUid());
+                                                        Log.i(TAG, firebaseUser.getUid());
+                                                        editor.apply();
                                                         intent.putExtra("signInMethod",1);// home activity kisminda hangi signin metodu ile islem yapilacagini
                                                         startActivity(intent);                       // belirlemek icin kkullanilir (1 --> google signIn)
                                                         finish();
