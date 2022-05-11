@@ -13,16 +13,23 @@ import android.icu.util.GregorianCalendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.appsocialactivity.constants.Interests;
 import com.example.appsocialactivity.databinding.ActivityLoginBinding;
 import com.example.appsocialactivity.databinding.ActivityProfileBinding;
 import com.example.appsocialactivity.dbmodel.Event;
+import com.example.appsocialactivity.dbmodel.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,14 +47,12 @@ public class ProfileActivity extends AppCompatActivity {
     // ViewBinding
     private ActivityProfileBinding binding;
 
-    Long time;
     String userid;
     GeoPoint locat;
     ArrayList<String> interestsOfUser;
     Integer numOfPeople = 0;
-    private View dialogView;
-    private AlertDialog alertDialog;
-
+    User user;
+    DocumentReference docRef;
     private FirebaseFirestore db;
 
     @Override
@@ -63,95 +68,114 @@ public class ProfileActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
+
         SharedPreferences prefs = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE);
         userid = prefs.getString("userId", "ERROR");
 
-
-
-            binding.submitDateBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialogView = View.inflate(ProfileActivity.this, R.layout.date_time_picker, null);
-                    alertDialog = new AlertDialog.Builder(ProfileActivity.this).create();
-                    dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
-                            TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
-
-                            Calendar calendar = new GregorianCalendar(datePicker.getYear(),
-                                    datePicker.getMonth(),
-                                    datePicker.getDayOfMonth(),
-                                    timePicker.getCurrentHour(),
-                                    timePicker.getCurrentMinute());
-
-                            time = calendar.getTimeInMillis();
-
-                            Date date = new Date(time);
-                            Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
-                            String formatString = format.format(date);
-                            binding.dateTV.setText(formatString);
-                            alertDialog.dismiss();
-                        }});
-                    alertDialog.setView(dialogView);
-                    if (time!= null){
-                        Log.i(TAG,time.toString());
-                    }
-                    alertDialog.show();
-                }
-            });
-            binding.submitEventBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AddEvent();
-                }
-            });
-
-    }
-
-    private void AddPhoneNumber(){
-        DocumentReference docRef = db.collection("User").document(userid);
-        docRef.update("phoneNumber", "123123123");
-    }
-
-    private void validate_data(){
-        String title = binding.title.getText().toString();
-        String description = binding.description.getText().toString();
-        String dateTime = binding.dateTV.getText().toString();
-
-        if(title.length()<2){
-            Toast.makeText(this, "Title must be at least 2 characters", Toast.LENGTH_SHORT).show();
-        }
-        else if(description.length()<10){
-            Toast.makeText(this, "You must add a decent description", Toast.LENGTH_SHORT).show();
-        } else if(dateTime.length()<2){
-            Toast.makeText(this, "You must pick a date", Toast.LENGTH_SHORT).show();
-        }else{
-            //locat, time, description, title, numOfPeople, interestsOfUser
-            AddEvent();
-        }
-
-    }
-    //GeoPoint location, Long time, String description, String name, Integer numOfPeople, ArrayList<String> interestsOfUser
-    private void AddEvent(){
-        Event event = new Event();
-        event.setDate(12312L);
-        event.setLocation(new GeoPoint(0,0));
-        event.setEventDescription("hehe");
-        event.setEventName("asd");
-        event.setNumOfPeople(6);
-        event.setInterestsOfEvent(null);
-        db.collection("Event").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        binding.submitPhoneBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(ProfileActivity.this, "Event added successfully", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                validate_data(binding.phoneNumberEdit.getText().toString());
             }
-        }).addOnFailureListener(new OnFailureListener() {
+        });
+
+        binding.addEventBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProfileActivity.this, "Failed to add event", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                Intent inten = new Intent(ProfileActivity.this, EventActivity.class);
+                startActivity(inten);
+                finish();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        docRef = db.collection("User").document(userid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot document = task.getResult();
+                    user = document.toObject(User.class);
+                    binding.profileName.setText(user.getNameSurname());
+                    binding.phoneNumber.setText(user.getPhoneNumber());
+
+                   if(user.getInterestsOfUser() == null){
+                       interestsOfUser = new ArrayList<>();
+                   }
+                   else{
+                       interestsOfUser = user.getInterestsOfUser();
+                   }
+
+                   if(interestsOfUser.contains(Interests.TOP_SPORLARI)){
+                       binding.cb1.setChecked(true);
+                   }
+                   if(interestsOfUser.contains(Interests.SANS_OYUNLARI)){
+                        binding.cb2.setChecked(true);
+                    }
+                   if(interestsOfUser.contains(Interests.TARTISMA)){
+                        binding.cb3.setChecked(true);
+                    }
+                    binding.cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                            if (compoundButton.isChecked()){
+                                interestsOfUser.add(Interests.TOP_SPORLARI);
+                                docRef.update("interestsOfUser", interestsOfUser);
+                            }else{
+                                interestsOfUser.remove(Interests.TOP_SPORLARI);
+                                docRef.update("interestsOfUser", interestsOfUser);
+                            }
+                        }
+                    });
+                    binding.cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                            if (compoundButton.isChecked()){
+                                interestsOfUser.add(Interests.SANS_OYUNLARI);
+                                docRef.update("interestsOfUser", interestsOfUser);
+                            }else{
+                                interestsOfUser.remove(Interests.SANS_OYUNLARI);
+                                docRef.update("interestsOfUser", interestsOfUser);
+                            }
+                        }
+                    });
+                    binding.cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                            if (compoundButton.isChecked()){
+                                interestsOfUser.add(Interests.TARTISMA);
+                                docRef.update("interestsOfUser", interestsOfUser);
+                            }else{
+                                interestsOfUser.remove(Interests.TARTISMA);
+                                docRef.update("interestsOfUser", interestsOfUser);
+                            }
+                        }
+                    });
+
+                }
             }
         });
     }
+
+    private void validate_data(String number){
+    if(number.length()!=11){
+        Toast.makeText(this, "Geçerli bir telefon numarası giriniz", Toast.LENGTH_SHORT).show();
+    }else{
+        AddPhoneNumber(number);
+    }
+    }
+
+    private void AddPhoneNumber(String number){
+        DocumentReference docRef = db.collection("User").document(userid);
+        docRef.update("phoneNumber", number);
+    }
+
 }

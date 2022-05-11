@@ -45,7 +45,7 @@ public class User {
     public void setInterestsOfUser(ArrayList<String> interestsOfUser) {
         this.interestsOfUser = interestsOfUser;
     }
-
+    public User(){}
 
 }
 

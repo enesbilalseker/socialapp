@@ -10,7 +10,7 @@ public class Event {
     Long date;
     String eventDescription;
     String eventName;
-    ArrayList<String> interestsOfEvent;
+    String interestsOfEvent;
     Integer numOfPeople;
 
     public GeoPoint getLocation() {
@@ -45,11 +45,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public ArrayList<String> getInterestsOfEvent() {
+    public String getInterestsOfEvent() {
         return interestsOfEvent;
     }
 
-    public void setInterestsOfEvent(ArrayList<String> interestsOfEvent) {
+    public void setInterestsOfEvent(String interestsOfEvent) {
         this.interestsOfEvent = interestsOfEvent;
     }
 

@@ -46,6 +46,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="23sp"
                     android:hint="Etkinlik İle İlgili Ayrıntıları Giriniz"
+                    android:inputType="text|textMultiLine"
                     android:textColorHint="@color/white"/>
 
                 <LinearLayout
@@ -104,17 +105,13 @@
                         android:textSize="23sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/qc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"
-                    android:drawableRight="@android:drawable/arrow_down_float"
-                    android:drawablePadding="16dp"
-                    android:hint="Etkinlik Etiketini Seçiniz"
-                    android:textColorHint="@color/black"
-                    android:padding="12dp"
-                    android:textSize="23sp"/>
+               <Spinner
+                   android:id="@+id/spinner_interests"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:spinnerMode="dropdown"
+
+                   />
                 <Button
                     android:id="@+id/add_eventBTN"
                     android:layout_width="wrap_content"

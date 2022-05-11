@@ -23,7 +23,12 @@
     <string name="fab_send">Save</string>
     <string name="fab_display_locs">Display Locations</string>
     <string name="Cancel">Cancel</string>
-    <string name="spinner_gun_prompt">Select Bin Type</string>
+    <string-array name="interests">
+        <item>Gir la</item>
+        <item>TOP_SPORLARI</item>
+        <item>SANS_OYUNLARI</item>
+        <item>TARTISMA</item>
+    </string-array>
 
 
 </resources>

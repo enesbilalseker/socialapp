@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
@@ -26,6 +28,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+
+import java.util.zip.Inflater;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         // configure action bar, title, backbutton
         actionBar = getSupportActionBar();
@@ -98,5 +103,30 @@ public class MainActivity extends AppCompatActivity {
             });
         });
         */
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.profileButton:
+
+                // Do Activity menu item stuff here
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                return true;
+
+
+            default:
+                break;
+        }
+
+        return false;
     }
 }
