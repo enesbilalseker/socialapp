@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.GeoPoint;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -40,7 +42,13 @@ public class EventActivity extends AppCompatActivity {
     // ViewBinding
     private ActivityEventBinding binding;
 
+
+
+
     Long time;
+    String interest = "Seçiniz";
+    GeoPoint loc;
+
     private View dialogView;
     private AlertDialog alertDialog;
     Spinner spinnerInterests;
@@ -48,7 +56,9 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityEventBinding.inflate(getLayoutInflater());
-
+        Intent intent = getIntent();
+        loc = new GeoPoint(intent.getDoubleExtra("lat", 0),intent.getDoubleExtra("lng",0));
+        Log.i("TAG", loc.toString());
         setContentView(binding.getRoot());
 
         // get instance of firestore db
@@ -63,12 +73,13 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getItemAtPosition(position).equals(0)){
-                    ((TextView) parent.getChildAt(0)).setText("Gir la");
+                    ((TextView) parent.getChildAt(0)).setText("Seçiniz");
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                     ((TextView) parent.getChildAt(0)).setTextSize(23);
                 }else {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
+                    interest = parent.getItemAtPosition(position).toString();
+
+                    Toast.makeText(parent.getContext(),"Selected: " +interest, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -112,7 +123,14 @@ public class EventActivity extends AppCompatActivity {
         binding.addEventBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddEvent();
+                validate_data();
+            }
+        });
+
+        binding.addLocationBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EventActivity.this, MapsActivity.class));
             }
         });
     }
@@ -120,29 +138,40 @@ public class EventActivity extends AppCompatActivity {
         String title = binding.title.getText().toString();
         String description = binding.description.getText().toString();
         String dateTime = binding.dateTV.getText().toString();
-
+        Integer numOfPeople = binding.numberOfPeople.getText().toString().equals("")? 0: Integer.parseInt(binding.numberOfPeople.getText().toString());
+        String nameOfPlace = binding.address.getText().toString();
         if(title.length()<2){
             Toast.makeText(this, "Title must be at least 2 characters", Toast.LENGTH_SHORT).show();
         }
         else if(description.length()<10){
             Toast.makeText(this, "You must add a decent description", Toast.LENGTH_SHORT).show();
-        } else if(dateTime.length()<2){
+        }else if(nameOfPlace.length() <= 2){
+            Toast.makeText(this, "Yo must add a decent address for your event", Toast.LENGTH_SHORT).show();
+        }
+        else if(loc.getLatitude() == 0.0 && loc.getLongitude() == 0.0){
+            Toast.makeText(this, "You must select a location for your event", Toast.LENGTH_SHORT).show();
+        }
+        else if(dateTime.length()<2){
             Toast.makeText(this, "You must pick a date", Toast.LENGTH_SHORT).show();
-        }else{
-            //locat, time, description, title, numOfPeople, interestsOfUser
+        }else if(numOfPeople <= 0){
+            Toast.makeText(this, "You must select at least 1 people to attend", Toast.LENGTH_SHORT).show();
+        }else if(interest.equals("Seçiniz")){
+            Toast.makeText(this, "You must pick an interest for your event", Toast.LENGTH_SHORT).show();
+        }
+        else{
             AddEvent();
         }
-
     }
     //GeoPoint location, Long time, String description, String name, Integer numOfPeople, ArrayList<String> interestsOfUser
     private void AddEvent(){
         Event event = new Event();
         event.setDate(time);
-        event.setLocation(new GeoPoint(0,0));
+        event.setLocation(loc);
         event.setEventDescription(binding.description.getText().toString());
         event.setEventName(binding.title.getText().toString());
+        event.setInterestsOfEvent(interest);
+        event.setNameOfPlace(binding.address.getText().toString());
         event.setNumOfPeople(Integer.parseInt(binding.numberOfPeople.getText().toString()));
-        event.setInterestsOfEvent(null);
         db.collection("Event").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
