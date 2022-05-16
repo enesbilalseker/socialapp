@@ -12,6 +12,15 @@ public class Event {
     String eventName;
     String interestsOfEvent;
     Integer numOfPeople;
+    String nameOfPlace;
+
+    public String getNameOfPlace() {
+        return nameOfPlace;
+    }
+
+    public void setNameOfPlace(String nameOfPlace) {
+        this.nameOfPlace = nameOfPlace;
+    }
 
     public GeoPoint getLocation() {
         return location;

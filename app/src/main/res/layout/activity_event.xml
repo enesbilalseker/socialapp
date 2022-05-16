@@ -101,6 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Sayı"
+                        android:inputType="number"
                         android:textColorHint="@color/white"
                         android:textSize="23sp" />
                 </LinearLayout>

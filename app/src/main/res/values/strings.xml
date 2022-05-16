@@ -24,7 +24,7 @@
     <string name="fab_display_locs">Display Locations</string>
     <string name="Cancel">Cancel</string>
     <string-array name="interests">
-        <item>Gir la</item>
+        <item>Seçiniz</item>
         <item>TOP_SPORLARI</item>
         <item>SANS_OYUNLARI</item>
         <item>TARTISMA</item>
