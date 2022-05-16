@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         // configure action bar, title, backbutton
         actionBar = getSupportActionBar();
-        actionBar.setTitle(getString(R.string.login_button));
+        actionBar.setTitle("Event");
 
         // Initialize firebase auth
         firebaseAuth=FirebaseAuth.getInstance();
