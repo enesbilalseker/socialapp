@@ -139,6 +139,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         // login basarisiz, hatayi goster
                         binding.progressBar.setVisibility(View.INVISIBLE);
+                        Log.i(TAG, e.getMessage());
                         Toast.makeText(SignupActivity.this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

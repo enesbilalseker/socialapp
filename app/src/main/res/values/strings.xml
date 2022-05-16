@@ -2,7 +2,7 @@
     <!-- environmental variables -->
     <string name="app_name">Social Activity App</string>
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
-    <string name="web_client_id" translatable="false">604683046025-isq3clcbuajbgnf6svemfkg0lnffmqs2.apps.googleusercontent.com</string>
+    <string name="web_client_id" translatable="false">304825810174-n4spfts32dvojn33hncfo5141qambkh0.apps.googleusercontent.com</string>
     <!-- UI cevirileri -->
     <string name="edit_text_hint_email"> Email</string>
     <string name="edit_text_hint_password"> Password</string>
@@ -23,7 +23,12 @@
     <string name="fab_send">Save</string>
     <string name="fab_display_locs">Display Locations</string>
     <string name="Cancel">Cancel</string>
-    <string name="spinner_gun_prompt">Select Bin Type</string>
+    <string-array name="interests">
+        <item>Gir la</item>
+        <item>TOP_SPORLARI</item>
+        <item>SANS_OYUNLARI</item>
+        <item>TARTISMA</item>
+    </string-array>
 
 
 </resources>
