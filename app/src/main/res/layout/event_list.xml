@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/event_div"
+
+    <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -53,6 +50,7 @@
                         android:text="Lokasyon: Zort Halısaha"/>
 
                     <Button
+                        android:id="@+id/locbtneventlist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="9sp"
@@ -76,7 +74,13 @@
                     android:padding="7dp"
                     android:textSize="15sp"
                     android:text="... kişilik yer var."/>
-
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="11dp"
+                    android:layout_alignParentRight="true"
+                    android:text="Iletisim"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -89,5 +93,4 @@
             android:layout_alignParentRight="true"
             android:text="Top Sporu"/>
 
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>

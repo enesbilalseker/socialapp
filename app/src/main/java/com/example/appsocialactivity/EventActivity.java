@@ -1,10 +1,13 @@
 package com.example.appsocialactivity;
 
+import static com.example.appsocialactivity.constants.SharedPrefNames.CONTACT_PREF;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
@@ -48,6 +51,7 @@ public class EventActivity extends AppCompatActivity {
     Long time;
     String interest = "Seçiniz";
     GeoPoint loc;
+    String contactNumber ="";
 
     private View dialogView;
     private AlertDialog alertDialog;
@@ -59,7 +63,10 @@ public class EventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         loc = new GeoPoint(intent.getDoubleExtra("lat", 0),intent.getDoubleExtra("lng",0));
 
+
         setContentView(binding.getRoot());
+
+
 
         // get instance of firestore db
         db = FirebaseFirestore.getInstance();
@@ -123,6 +130,7 @@ public class EventActivity extends AppCompatActivity {
         binding.addEventBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 validate_data();
             }
         });
@@ -165,14 +173,20 @@ public class EventActivity extends AppCompatActivity {
     }
     //GeoPoint location, Long time, String description, String name, Integer numOfPeople, ArrayList<String> interestsOfUser
     private void AddEvent(){
+        SharedPreferences prefs = getSharedPreferences(CONTACT_PREF, MODE_PRIVATE);
+        String contactphone = prefs.getString("contactphone", "No phone defined");
+
         Event event = new Event();
         event.setDate(time);
         event.setLocation(loc);
+        event.setContactNumber(contactphone);
         event.setEventDescription(binding.description.getText().toString());
         event.setEventName(binding.title.getText().toString());
         event.setInterestsOfEvent(interest);
         event.setNameOfPlace(binding.address.getText().toString());
         event.setNumOfPeople(Integer.parseInt(binding.numberOfPeople.getText().toString()));
+
+        Log.i(TAG, "asdasd: " + contactNumber);
         db.collection("Event").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {

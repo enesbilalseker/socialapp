@@ -29,6 +29,7 @@
         <item>SANS_OYUNLARI</item>
         <item>TARTISMA</item>
     </string-array>
+    <string name="title_activity_maps2">MapsActivity2</string>
 
 
 </resources>

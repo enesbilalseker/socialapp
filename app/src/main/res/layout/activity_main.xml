@@ -14,8 +14,10 @@
             android:id="@+id/event_listview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:dividerHeight="-15dp"
-            ></ListView>
+            android:dividerHeight="-15dp">
+
+
+        </ListView>
 
     </RelativeLayout>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.appsocialactivity;
 
+import static com.example.appsocialactivity.constants.SharedPrefNames.CONTACT_PREF;
 import static com.example.appsocialactivity.constants.SharedPrefNames.USER_ID_PREF;
 
 import androidx.annotation.NonNull;
@@ -82,8 +83,11 @@ public class ProfileActivity extends AppCompatActivity {
         binding.addEventBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inten = new Intent(ProfileActivity.this, EventActivity.class);
-                startActivity(inten);
+                Intent intent = new Intent(ProfileActivity.this, EventActivity.class);
+                SharedPreferences.Editor editor = getSharedPreferences(CONTACT_PREF, MODE_PRIVATE).edit();
+                editor.putString("contactphone", user.getPhoneNumber());
+                editor.apply();
+                startActivity(intent);
                 finish();
             }
         });

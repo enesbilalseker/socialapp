@@ -13,9 +13,33 @@ public class Event {
     String interestsOfEvent;
     Integer numOfPeople;
     String nameOfPlace;
+    String contactNumber;
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
 
     public String getNameOfPlace() {
         return nameOfPlace;
+    }
+
+    public Event() {
+
+    }
+
+    public Event(GeoPoint location, Long date, String eventDescription, String eventName, String interestsOfEvent, Integer numOfPeople, String nameOfPlace) {
+        this.location = location;
+        this.date = date;
+        this.eventDescription = eventDescription;
+        this.eventName = eventName;
+        this.interestsOfEvent = interestsOfEvent;
+        this.numOfPeople = numOfPeople;
+        this.nameOfPlace = nameOfPlace;
     }
 
     public void setNameOfPlace(String nameOfPlace) {

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.zip.Inflater;
 
 
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
 
 
-    private ListView listView;
+    private ListView mList;
     private ArrayList<Event> eventArrayList;
 
     @Override
@@ -73,8 +76,7 @@ public class MainActivity extends AppCompatActivity {
         // configure action bar, title, backbutton
         actionBar = getSupportActionBar();
         actionBar.setTitle("Event");
-        listView = findViewById(R.id.event_listview);
-
+        mList = findViewById(R.id.event_listview);
 
 
         // Initialize firebase auth
@@ -84,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
         eventArrayList = new ArrayList<>();
 
-        EventListAdapter adapter = new EventListAdapter(this, R.layout.event_list, eventArrayList);
-        listView.setAdapter(adapter);
+        FetchEvents();
+
 
         /*
         // Check condition
@@ -122,8 +124,10 @@ public class MainActivity extends AppCompatActivity {
             });
         });
         */
-        FetchEvents();
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,6 +150,11 @@ public class MainActivity extends AppCompatActivity {
             for (QueryDocumentSnapshot document : task.getResult()) {
                 eventArrayList.add(document.toObject(Event.class));
             }
+            CustomListAdapter adapter = new CustomListAdapter(MainActivity.this, eventArrayList);
+
+// get the ListView and attach the adapter
+            ListView itemsListView  = (ListView) findViewById(R.id.event_listview);
+            itemsListView.setAdapter(adapter);
         }
     }
 });
