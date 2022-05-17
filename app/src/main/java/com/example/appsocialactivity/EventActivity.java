@@ -58,7 +58,7 @@ public class EventActivity extends AppCompatActivity {
         binding = ActivityEventBinding.inflate(getLayoutInflater());
         Intent intent = getIntent();
         loc = new GeoPoint(intent.getDoubleExtra("lat", 0),intent.getDoubleExtra("lng",0));
-        Log.i("TAG", loc.toString());
+
         setContentView(binding.getRoot());
 
         // get instance of firestore db
@@ -160,6 +160,7 @@ public class EventActivity extends AppCompatActivity {
         }
         else{
             AddEvent();
+
         }
     }
     //GeoPoint location, Long time, String description, String name, Integer numOfPeople, ArrayList<String> interestsOfUser
@@ -176,6 +177,8 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(EventActivity.this, "Event added successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EventActivity.this, MainActivity.class));
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

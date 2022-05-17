@@ -10,10 +10,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 
 import com.example.appsocialactivity.databinding.ActivityMainBinding;
+import com.example.appsocialactivity.dbmodel.Event;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,9 +30,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
 
@@ -50,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
 
+
+    private ListView listView;
+    private ArrayList<Event> eventArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +73,19 @@ public class MainActivity extends AppCompatActivity {
         // configure action bar, title, backbutton
         actionBar = getSupportActionBar();
         actionBar.setTitle("Event");
+        listView = findViewById(R.id.event_listview);
+
+
 
         // Initialize firebase auth
         firebaseAuth=FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
         // Initialize firebase user
         firebaseUser=firebaseAuth.getCurrentUser();
+        eventArrayList = new ArrayList<>();
 
+        EventListAdapter adapter = new EventListAdapter(this, R.layout.event_list, eventArrayList);
+        listView.setAdapter(adapter);
 
         /*
         // Check condition
@@ -103,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
             });
         });
         */
+        FetchEvents();
     }
 
     @Override
@@ -110,6 +130,25 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    private void FetchEvents() {
+    db.collection("Event").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    @Override
+    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        if(task.isSuccessful()){
+            for (QueryDocumentSnapshot document : task.getResult()) {
+                eventArrayList.add(document.toObject(Event.class));
+            }
+        }
+    }
+});
     }
 
     @Override
