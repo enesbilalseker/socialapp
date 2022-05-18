@@ -35,6 +35,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -55,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity {
     User user;
     DocumentReference docRef;
     private FirebaseFirestore db;
+    ArrayList<String> eventIdList;
+    ArrayList<Event> usersEventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +72,8 @@ public class ProfileActivity extends AppCompatActivity {
         // get instance of firestore db
         db = FirebaseFirestore.getInstance();
 
-
-
+        eventIdList = new ArrayList<>();
+        usersEventList = new ArrayList<>();
         SharedPreferences prefs = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE);
         userid = prefs.getString("userId", "ERROR");
 
@@ -105,6 +109,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     DocumentSnapshot document = task.getResult();
                     user = document.toObject(User.class);
+                    eventIdList =  user.getEventList();
                     binding.profileName.setText(user.getNameSurname());
                     binding.phoneNumber.setText(user.getPhoneNumber());
 
@@ -165,6 +170,22 @@ public class ProfileActivity extends AppCompatActivity {
                     });
 
                 }
+                db.collection("Event").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                for (int i = 0; i < eventIdList.size(); i++) {
+                                    if (document.getId().equals(eventIdList.get(i))){
+                                        usersEventList.add(document.toObject(Event.class));
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                });
             }
         });
     }

@@ -7,13 +7,13 @@ public class User {
     private String nameSurname;
     private String phoneNumber;
     private ArrayList<String> interestsOfUser;
-    private ArrayList<Event> eventList;
+    private ArrayList<String> eventList;
 
-    public ArrayList<Event> getEventList() {
+    public ArrayList<String> getEventList() {
         return eventList;
     }
 
-    public void setEventList(ArrayList<Event> eventList) {
+    public void setEventList(ArrayList<String> eventList) {
         this.eventList = eventList;
     }
 

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.zip.Inflater;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mList;
     private ArrayList<Event> eventArrayList;
+    private ArrayList<Event> filteredEventArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +88,31 @@ public class MainActivity extends AppCompatActivity {
         // Initialize firebase user
         firebaseUser=firebaseAuth.getCurrentUser();
         eventArrayList = new ArrayList<>();
-
+        filteredEventArrayList = new ArrayList<>();
         FetchEvents();
+
+
+        binding.searchSV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                FilterEventList(s);
+                filteredEventArrayList = new ArrayList<>();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        binding.searchSV.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                SetListView(eventArrayList);
+                filteredEventArrayList = new ArrayList<>();
+                return false;
+            }
+        });
 
 
         /*
@@ -142,6 +168,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void FilterEventList(String filter){
+
+        if(filter.equalsIgnoreCase("") || filter.equals(null)){
+            SetListView(eventArrayList);
+            filteredEventArrayList = new ArrayList<>();
+            return;
+        }
+
+        for (int i = 0; i < eventArrayList.size(); i++) {
+            if(eventArrayList.get(i).getInterestsOfEvent().toLowerCase().contains(filter.toLowerCase())){
+                filteredEventArrayList.add(eventArrayList.get(i));
+            }
+        }
+        SetListView(filteredEventArrayList);
+
+    }
+
     private void FetchEvents() {
     db.collection("Event").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
     @Override
@@ -149,15 +192,21 @@ public class MainActivity extends AppCompatActivity {
         if(task.isSuccessful()){
             for (QueryDocumentSnapshot document : task.getResult()) {
                 eventArrayList.add(document.toObject(Event.class));
-            }
-            CustomListAdapter adapter = new CustomListAdapter(MainActivity.this, eventArrayList);
 
-// get the ListView and attach the adapter
-            ListView itemsListView  = (ListView) findViewById(R.id.event_listview);
-            itemsListView.setAdapter(adapter);
+            }
+
+            SetListView(eventArrayList);
         }
     }
 });
+    }
+
+    private void SetListView(ArrayList<Event> elist){
+        CustomListAdapter adapter = new CustomListAdapter(MainActivity.this, elist);
+
+// get the ListView and attach the adapter
+        ListView itemsListView  = (ListView) findViewById(R.id.event_listview);
+        itemsListView.setAdapter(adapter);
     }
 
     @Override

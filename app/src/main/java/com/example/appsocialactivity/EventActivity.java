@@ -1,6 +1,7 @@
 package com.example.appsocialactivity;
 
 import static com.example.appsocialactivity.constants.SharedPrefNames.CONTACT_PREF;
+import static com.example.appsocialactivity.constants.SharedPrefNames.USER_ID_PREF;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -25,14 +26,18 @@ import android.widget.Toast;
 import com.example.appsocialactivity.databinding.ActivityEventBinding;
 import com.example.appsocialactivity.databinding.ActivityProfileBinding;
 import com.example.appsocialactivity.dbmodel.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -46,7 +51,7 @@ public class EventActivity extends AppCompatActivity {
     private ActivityEventBinding binding;
 
 
-
+    DocumentReference docRef;
 
     Long time;
     String interest = "Seçiniz";
@@ -141,6 +146,9 @@ public class EventActivity extends AppCompatActivity {
                 startActivity(new Intent(EventActivity.this, MapsActivity.class));
             }
         });
+
+
+
     }
     private void validate_data(){
         String title = binding.title.getText().toString();
@@ -190,6 +198,7 @@ public class EventActivity extends AppCompatActivity {
         db.collection("Event").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+                AddEventToUserEventList(documentReference.getId());
                 Toast.makeText(EventActivity.this, "Event added successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(EventActivity.this, MainActivity.class));
                 finish();
@@ -198,6 +207,32 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(EventActivity.this, "Failed to add event", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void AddEventToUserEventList(String eventId){
+
+        SharedPreferences prefs = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE);
+        String userid = prefs.getString("userId", "ERROR");
+        docRef = db.collection("User").document(userid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                ArrayList<String> temp;
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.get("eventList") == null){
+                        temp = new ArrayList<>();
+                        temp.add(eventId);
+                        docRef.update("eventList", temp);
+                    }
+                    else{
+                        temp = (ArrayList<String>) document.get("eventList");
+                        Log.i("TAKKE", eventId);
+                        temp.add(eventId);
+                        docRef.update("eventList", temp);
+                    }
+                }
             }
         });
     }

@@ -54,7 +54,6 @@ public class CustomListAdapter extends BaseAdapter {
 
         // get current item to be displayed
         Event currentItem = (Event) getItem(position);
-
         // get the TextView for item name and item description
         TextView textViewEventTag= (TextView)
                 convertView.findViewById(R.id.event_tag);
@@ -89,7 +88,6 @@ public class CustomListAdapter extends BaseAdapter {
         locbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("TAG", "sda");
                 Intent intent = new Intent(context, MapsActivity2.class);
                 Double lat = currentItem.getLocation().getLatitude();
                 Double lng = currentItem.getLocation().getLongitude();
