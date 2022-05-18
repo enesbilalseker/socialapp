@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -59,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     ArrayList<String> eventIdList;
     ArrayList<Event> usersEventList;
+    ArrayList<String> usersEventIdList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         eventIdList = new ArrayList<>();
         usersEventList = new ArrayList<>();
+        usersEventIdList = new ArrayList<>();
         SharedPreferences prefs = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE);
         userid = prefs.getString("userId", "ERROR");
 
@@ -109,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     DocumentSnapshot document = task.getResult();
                     user = document.toObject(User.class);
+                    Log.i("TAKKEW", userid);
                     eventIdList =  user.getEventList();
                     binding.profileName.setText(user.getNameSurname());
                     binding.phoneNumber.setText(user.getPhoneNumber());
@@ -178,11 +182,13 @@ public class ProfileActivity extends AppCompatActivity {
                                 for (int i = 0; i < eventIdList.size(); i++) {
                                     if (document.getId().equals(eventIdList.get(i))){
                                         usersEventList.add(document.toObject(Event.class));
+                                        usersEventIdList.add(document.getId());
                                     }
                                 }
 
                             }
 
+                            SetListVieww(usersEventList, usersEventIdList, userid);
                         }
                     }
                 });
@@ -201,6 +207,15 @@ public class ProfileActivity extends AppCompatActivity {
     private void AddPhoneNumber(String number){
         DocumentReference docRef = db.collection("User").document(userid);
         docRef.update("phoneNumber", number);
+        binding.phoneNumber.setText(number);
+    }
+
+    private void SetListVieww(ArrayList<Event> elist, ArrayList<String> idlist, String suserid){
+        CustomListHistoryAdapter adapter = new CustomListHistoryAdapter(ProfileActivity.this, elist, idlist, suserid);
+
+        // get the ListView and attach the adapter
+        ListView itemsListView  = (ListView) findViewById(R.id.event_listview_history);
+        itemsListView.setAdapter(adapter);
     }
 
 }

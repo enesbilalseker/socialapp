@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     private void SetListView(ArrayList<Event> elist){
         CustomListAdapter adapter = new CustomListAdapter(MainActivity.this, elist);
 
-// get the ListView and attach the adapter
+        // get the ListView and attach the adapter
         ListView itemsListView  = (ListView) findViewById(R.id.event_listview);
         itemsListView.setAdapter(adapter);
     }

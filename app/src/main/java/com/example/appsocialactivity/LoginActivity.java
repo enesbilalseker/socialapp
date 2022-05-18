@@ -39,6 +39,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity  {
 
     // TAGS
@@ -228,6 +230,7 @@ public class LoginActivity extends AppCompatActivity  {
                                             // Check if user logged in to google account for the first time
 
                                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                            Log.i(TAG, firebaseUser.getUid());
                                             DocumentReference docRef = db.collection("User").document(firebaseUser.getUid());
                                             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
@@ -244,6 +247,7 @@ public class LoginActivity extends AppCompatActivity  {
                                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                         SharedPreferences.Editor editor = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE).edit();
                                                         editor.putString("userId", firebaseUser.getUid());
+                                                        Log.i("TAGGEW", firebaseUser.getUid());
                                                         Log.i(TAG, firebaseUser.getUid());
                                                         editor.apply();
                                                         intent.putExtra("signInMethod",1);// home activity kisminda hangi signin metodu ile islem yapilacagini
@@ -287,6 +291,9 @@ public class LoginActivity extends AppCompatActivity  {
         editor.apply();
         Log.i(TAG, userId);
         User user = new User(nameSurname);
+        user.setEventList(new ArrayList<>());
+        user.setInterestsOfUser(new ArrayList<>());
+        user.setPhoneNumber("");
         db.collection("User").document(userId).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
