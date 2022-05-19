@@ -78,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         usersEventList = new ArrayList<>();
         usersEventIdList = new ArrayList<>();
         SharedPreferences prefs = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE);
-        userid = prefs.getString("userId", "ERROR");
+        userid = prefs.getString("userID", "ERROR");
 
         binding.submitPhoneBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, EventActivity.class);
                 SharedPreferences.Editor editor = getSharedPreferences(CONTACT_PREF, MODE_PRIVATE).edit();
-                editor.putString("contactphone", user.getPhoneNumber());
+                editor.putString("contactphone", binding.phoneNumber.getText().toString());
                 editor.apply();
                 startActivity(intent);
                 finish();
@@ -112,8 +112,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                     DocumentSnapshot document = task.getResult();
                     user = document.toObject(User.class);
-                    Log.i("TAKKEW", userid);
-                    eventIdList =  user.getEventList();
+
+                        eventIdList =  user.getEventList();
+
+
                     binding.profileName.setText(user.getNameSurname());
                     binding.phoneNumber.setText(user.getPhoneNumber());
 
@@ -207,6 +209,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void AddPhoneNumber(String number){
         DocumentReference docRef = db.collection("User").document(userid);
         docRef.update("phoneNumber", number);
+        binding.phoneNumberEdit.setText("");
         binding.phoneNumber.setText(number);
     }
 

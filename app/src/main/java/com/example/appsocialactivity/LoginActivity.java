@@ -246,7 +246,7 @@ public class LoginActivity extends AppCompatActivity  {
                                                         Toast.makeText(LoginActivity.this, getString(R.string.logged_in_succesfuly) + "\n" + email, Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                         SharedPreferences.Editor editor = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE).edit();
-                                                        editor.putString("userId", firebaseUser.getUid());
+                                                        editor.putString("userID", firebaseUser.getUid());
                                                         Log.i("TAGGEW", firebaseUser.getUid());
                                                         Log.i(TAG, firebaseUser.getUid());
                                                         editor.apply();

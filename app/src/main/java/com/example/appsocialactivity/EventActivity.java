@@ -192,6 +192,7 @@ public class EventActivity extends AppCompatActivity {
         event.setEventName(binding.title.getText().toString());
         event.setInterestsOfEvent(interest);
         event.setNameOfPlace(binding.address.getText().toString());
+
         event.setNumOfPeople(Integer.parseInt(binding.numberOfPeople.getText().toString()));
 
         Log.i(TAG, "asdasd: " + contactNumber);
@@ -213,7 +214,7 @@ public class EventActivity extends AppCompatActivity {
     private void AddEventToUserEventList(String eventId){
 
         SharedPreferences prefs = getSharedPreferences(USER_ID_PREF, MODE_PRIVATE);
-        String userid = prefs.getString("userId", "ERROR");
+        String userid = prefs.getString("userID", "ERROR");
         docRef = db.collection("User").document(userid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

@@ -115,41 +115,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*
-        // Check condition
-        if(firebaseUser != null)
-        {
-            String email = firebaseUser.getEmail();
-            binding.mail.setText(email);
-        }
+
+
 
         // Initialize sign in client
         gsc= GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
-        binding.logout.setOnClickListener(view -> {
-            // Sign out from google
-            gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    // Check condition
-                    if(task.isSuccessful())
-                    {
-                        // When task is successful
-                        // Sign out from firebase
-                        firebaseAuth.signOut();
 
-                        // Display Toast
-                        Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
 
-                        // Finish activity
-                        finish();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
-                    }
-                }
-            });
-        });
-        */
+
 
     }
 
@@ -159,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
+
         return true;
     }
 
@@ -218,12 +194,38 @@ public class MainActivity extends AppCompatActivity {
                 // Do Activity menu item stuff here
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 return true;
+            case R.id.logoutButton:
 
+                LogoutActions();
+                return true;
 
             default:
                 break;
         }
 
         return false;
+    }
+
+    private void LogoutActions(){
+        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                // Check condition
+                if(task.isSuccessful())
+                {
+                    // When task is successful
+                    // Sign out from firebase
+                    firebaseAuth.signOut();
+
+                    // Display Toast
+                    Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
+
+                    // Finish activity
+                    finish();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
+                }
+            }
+        });
     }
 }
