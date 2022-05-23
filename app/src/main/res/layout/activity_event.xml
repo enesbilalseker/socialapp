@@ -37,7 +37,7 @@
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:hint="Etkinlik Başlığı Giriniz"
-                    android:textColorHint="@color/white"/>
+                    android:textColorHint="@color/grey_bright"/>
 
                 <EditText
                     android:id="@+id/description"
@@ -47,7 +47,7 @@
                     android:textSize="23sp"
                     android:hint="Etkinlik İle İlgili Ayrıntıları Giriniz"
                     android:inputType="text|textMultiLine"
-                    android:textColorHint="@color/white"/>
+                    android:textColorHint="@color/grey_bright"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Mekan İsmi Giriniz"
-                        android:textColorHint="@color/white"
+                        android:textColorHint="@color/grey_bright"
                         android:textSize="23sp" />
 
                     <Button
@@ -82,7 +82,8 @@
                         android:id="@+id/dateTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="31dp"/>
+                        android:layout_marginLeft="31dp"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -102,7 +103,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Sayı"
                         android:inputType="number"
-                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey_bright"
                         android:textSize="23sp" />
                 </LinearLayout>
 
@@ -110,9 +112,7 @@
                    android:id="@+id/spinner_interests"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:spinnerMode="dropdown"
-
-                   />
+                   android:spinnerMode="dropdown"/>
                 <Button
                     android:id="@+id/add_eventBTN"
                     android:layout_width="wrap_content"

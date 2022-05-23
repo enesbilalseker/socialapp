@@ -91,7 +91,7 @@ public class EventActivity extends AppCompatActivity {
                 }else {
                     interest = parent.getItemAtPosition(position).toString();
 
-                    Toast.makeText(parent.getContext(),"Selected: " +interest, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(parent.getContext(),"Selected: " +interest, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

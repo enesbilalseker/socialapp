@@ -69,16 +69,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="7dp"
+                                android:text="İletişim: "
+                                android:textSize="19sp"
+                                android:textColor="@color/white"/>
 
-
-                        <TextView
-                            android:id="@+id/phone_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="7dp"
-                            android:text="İletişim: +905078869669"
-                            android:textSize="19sp"
-                            android:textColor="@color/white"/>
+                            <TextView
+                                android:id="@+id/phone_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="7dp"
+                                android:textSize="19sp"
+                                android:textColor="@color/white"/>
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -89,6 +98,7 @@
                                 android:hint="Telefon Numarası"
                                 android:inputType="phone"
                                 android:textSize="19sp"
+                                android:textColor="@color/white"
                                 android:textColorHint="@color/grey_normal"/>
 
                             <Button

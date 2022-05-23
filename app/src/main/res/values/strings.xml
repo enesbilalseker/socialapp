@@ -9,7 +9,7 @@
     <string name="edit_text_hint_name_surname">Name Surname</string>
     <string name="login_button">Login</string>
     <string name="signup_button">Signup</string>
-    <string name="dont_have_account_text">Don\'t have an account yet? <b>Tap here!</b></string>
+    <string name="dont_have_account_text">Hesap oluşturmak için tıklayın. <b>Buraya!</b></string>
     <string name="invalid_email_error">Invalid email format</string>
     <string name="empty_password_error">Enter password</string>
     <string name="password_length_error">Password must be at least 6 characters long</string>

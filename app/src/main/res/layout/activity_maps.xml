@@ -18,7 +18,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="155dp"
     android:layout_alignParentBottom="true"
-    android:text="Open Store"/>
+    android:text="EKLE"/>
 
 </RelativeLayout>
 

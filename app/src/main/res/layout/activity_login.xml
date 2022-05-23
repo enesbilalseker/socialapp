@@ -93,6 +93,7 @@
         android:layout_height="18dp"
         android:text="@string/dont_have_account_text"
         android:textColor="@color/green_dark"
+        android:layout_marginLeft="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
